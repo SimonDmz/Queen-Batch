@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<Campaign>
+	<Id>simpsons2022x00</Id>
+	<Label>tseeet</Label>
+	<SurveyUnits>
+		<SurveyUnit>
+			<Id>ab123d33Rhfdf</Id>
+			<QuestionnaierModelId>test</QuestionnaierModelId>
+			<Data>
+				<EXTERNAL />
+				<COLLECTED />
+			</Data>
+			<Personalization>
+				<Variable>
+					<Name>test</Name>
+					<Value>tssset</Value>
+				</Variable>
+				<Variable>
+					<Name>test2</Name>
+					<Value>tseeeet2</Value>
+				</Variable>
+			</Personalization>
+		</SurveyUnit>
+		<SurveyUnit>
+			<Id>fdsqvfe79fdaj</Id>
+			<QuestionnaierModelId>test</QuestionnaierModelId>
+			<Data>
+				<EXTERNAL />
+				<COLLECTED />
+			</Data>
+			<Personalization>
+				<Variable>
+					<Name>Tseeeetet</Name>
+					<Value>tstsststst</Value>
+				</Variable>
+				<Variable>
+					<Name>stststt2</Name>
+					<Value>stststst2</Value>
+				</Variable>
+			</Personalization>
+		</SurveyUnit>
+	</SurveyUnits>
+</Campaign>
