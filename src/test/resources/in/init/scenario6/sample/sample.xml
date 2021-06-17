@@ -5,7 +5,7 @@
 	<SurveyUnits>
 		<SurveyUnit>
 			<Id>ab123d33Rhfdf</Id>
-			<QuestionnaierModelId>simpsons</QuestionnaierModelId>
+			<QuestionnaireModelId>simpsons</QuestionnaireModelId>
 			<Data>
 				<EXTERNAL />
 				<COLLECTED />
@@ -23,7 +23,7 @@
 		</SurveyUnit>
 		<SurveyUnit>
 			<Id>11</Id>
-			<QuestionnaierModelId>simpsons</QuestionnaierModelId>
+			<QuestionnaireModelId>simpsons</QuestionnaireModelId>
 			<Data>
 				<EXTERNAL />
 				<COLLECTED />

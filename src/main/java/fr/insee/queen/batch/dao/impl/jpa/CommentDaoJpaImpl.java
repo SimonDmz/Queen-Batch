@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.json.simple.JSONObject;
 import org.postgresql.util.PGobject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
@@ -36,7 +37,7 @@ public class CommentDaoJpaImpl implements CommentDao {
 		StringBuilder qString = new StringBuilder("INSERT INTO comment (id, value, survey_unit_id) VALUES (?, ?, ?)");
 		PGobject value = new PGobject();
 		value.setType("json");
-		value.setValue(surveyUnit.getData().getValue().toJSONString());
+		value.setValue(new JSONObject().toJSONString());
 		jdbcTemplate.update(qString.toString(), surveyUnit.getComment().getId(), value, surveyUnit.getId());
 	}
 
@@ -69,15 +70,4 @@ public class CommentDaoJpaImpl implements CommentDao {
 		jdbcTemplate.update(qString.toString(), campaignId);
 	}
 
-	/**
-	 * Update comment for a SurveyUnit
-	 */
-	@Override
-	public void updateComment(SurveyUnit surveyUnit) throws SQLException {
-		StringBuilder qString = new StringBuilder("UPDATE comment SET value = ? WHERE survey_unit_id= ?");
-		PGobject value = new PGobject();
-		value.setType("json");
-		value.setValue(surveyUnit.getData().getValue().toJSONString());
-		jdbcTemplate.update(qString.toString(), value, surveyUnit.getId());
-	}
 }

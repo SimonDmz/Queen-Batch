@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import fr.insee.queen.batch.Constants;
 import fr.insee.queen.batch.config.ConditonMongo;
 import fr.insee.queen.batch.dao.DataDao;
 import fr.insee.queen.batch.object.Data;
@@ -40,7 +41,7 @@ public class DataDaoMongoImpl implements DataDao {
 		data.setId(surveyUnit.getData().getId());
 		data.setValue(surveyUnit.getData().getValue());
 		data.setSurveyUnit(surveyUnit);
-		mongoTemplate.save(data, "data");
+		mongoTemplate.save(data, Constants.DATA);
 	}
 
 	/**
@@ -50,7 +51,7 @@ public class DataDaoMongoImpl implements DataDao {
 	public JSONObject getDataBySurveyUnitId(String suId) throws ParseException {
 		Query query = new Query();
 		query.fields().include("value");
-		return mongoTemplate.findOne(query, Data.class, "data").getValue();
+		return mongoTemplate.findOne(query, Data.class, Constants.DATA).getValue();
 	}
 
 	/**
@@ -63,7 +64,7 @@ public class DataDaoMongoImpl implements DataDao {
 		List<SurveyUnit> suList = mongoTemplate.find(query, SurveyUnit.class, "survey_unit");
 		suList.stream().forEach(su -> {
 			if(su != null && su.getData() != null) {
-				mongoTemplate.remove(su.getData(), "data");
+				mongoTemplate.remove(su.getData(), Constants.DATA);
 			}
 		});
 		
@@ -77,13 +78,11 @@ public class DataDaoMongoImpl implements DataDao {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("campaign.id").is(campaignId));
 		List<SurveyUnit> suList = mongoTemplate.find(query, SurveyUnit.class, "survey_unit");
-		if(suList != null) {
-			suList.stream().forEach(su -> {
-				if(su != null && su.getData() != null) {
-					mongoTemplate.remove(su.getData(), "data");
-				}
-			});
-		}
+		suList.stream().forEach(su -> {
+			if(su != null && su.getData() != null) {
+				mongoTemplate.remove(su.getData(), Constants.DATA);
+			}
+		});
 	}
 
 	/**
@@ -93,10 +92,10 @@ public class DataDaoMongoImpl implements DataDao {
 	public void updateData(SurveyUnit surveyUnit) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("surveyUnit.id").is(surveyUnit.getId()));
-		Data dataTemp = mongoTemplate.findOne(query, Data.class, "data");
+		Data dataTemp = mongoTemplate.findOne(query, Data.class, Constants.DATA);
 		dataTemp.setValue(surveyUnit.getData().getValue());
 		dataTemp.setSurveyUnit(surveyUnit);
-		mongoTemplate.save(dataTemp, "data");
+		mongoTemplate.save(dataTemp, Constants.DATA);
 	}
 
 }

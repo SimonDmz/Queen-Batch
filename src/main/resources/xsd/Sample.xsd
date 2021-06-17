@@ -26,7 +26,7 @@
 	<xs:complexType name="SurveyUnitType">
 		<xs:sequence>
 			<xs:element name="Id" type="xs:string" />
-			<xs:element name="QuestionnaierModelId" type="xs:string" />
+			<xs:element name="QuestionnaireModelId" type="xs:string" />
 			<xs:element name="Data" minOccurs="0" />
 			<xs:element name="Personalization" type="Personalization" minOccurs="0" />
 		</xs:sequence>

@@ -2,9 +2,6 @@ package fr.insee.queen.batch.object;
 
 import java.util.UUID;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
 import org.json.simple.JSONObject;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;

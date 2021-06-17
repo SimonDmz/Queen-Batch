@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import fr.insee.queen.batch.Constants;
 import fr.insee.queen.batch.config.ConditonMongo;
 import fr.insee.queen.batch.dao.CommentDao;
 import fr.insee.queen.batch.object.Comment;
@@ -38,7 +39,7 @@ public class CommentDaoMongoImpl implements CommentDao {
 		List<SurveyUnit> suList = mongoTemplate.find(query, SurveyUnit.class, "survey_unit");
 		suList.stream().forEach(su -> {
 			if(su != null && su.getComment() != null) {
-				mongoTemplate.remove(su.getComment(), "comment");
+				mongoTemplate.remove(su.getComment(), Constants.COMMENT);
 			}
 		});
 	}
@@ -53,7 +54,7 @@ public class CommentDaoMongoImpl implements CommentDao {
 		List<SurveyUnit> suList = mongoTemplate.find(query, SurveyUnit.class, "survey_unit");
 		suList.stream().forEach(su -> {
 			if(su != null && su.getComment() != null) {
-				mongoTemplate.remove(su.getComment(), "comment");
+				mongoTemplate.remove(su.getComment(), Constants.COMMENT);
 			}
 		});
 	}
@@ -67,18 +68,7 @@ public class CommentDaoMongoImpl implements CommentDao {
 		comment.setId(surveyUnit.getComment().getId());
 		comment.setValue(new JSONObject());
 		comment.setSurveyUnit(surveyUnit);
-		mongoTemplate.save(comment, "comment");
+		mongoTemplate.save(comment, Constants.COMMENT);
 	}
 
-	/**
-	 * Update the comment by a SU
-	 */
-	@Override
-	public void updateComment(SurveyUnit surveyUnit) {
-		Query query = new Query();
-		query.addCriteria(Criteria.where("id").is(surveyUnit.getComment().getId()));
-		Comment commentTemp = mongoTemplate.findOne(query, Comment.class, "comment");
-		commentTemp.setSurveyUnit(surveyUnit);
-		mongoTemplate.save(commentTemp, "comment");
-	}
 }

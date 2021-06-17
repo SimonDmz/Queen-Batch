@@ -413,7 +413,7 @@ public class XmlUtils {
 					Element surveyUnit = (Element) nodeSurveyUnit;
 					if(surveyUnit.getElementsByTagName("Id").item(0).getTextContent()!= null && 
 							!surveyUnitsIds.contains(surveyUnit.getElementsByTagName("Id").item(0).getTextContent())) {
-						QuestionnaireModel questionnaireModel = questionnaireModelDao.findById(surveyUnit.getElementsByTagName("QuestionnaierModelId").item(0).getTextContent());
+						QuestionnaireModel questionnaireModel = questionnaireModelDao.findById(surveyUnit.getElementsByTagName("QuestionnaireModelId").item(0).getTextContent());
 						questionnaireModel.setCampaignId(campaign.getId());
 						questionnaireModels.add(questionnaireModel);
 						surveyUnits.add(
@@ -423,10 +423,10 @@ public class XmlUtils {
 									new Comment(UUID.randomUUID()),
 									xmlToData(surveyUnit), 
 									new StateData(), 
-									xmlToPersonalization(fileName, surveyUnit.getElementsByTagName("Personalization").item(0))));
-						surveyUnitsIds.add(surveyUnit.getElementsByTagName("Id").item(0).getTextContent().toString());
+									xmlToPersonalization(surveyUnit.getElementsByTagName("Personalization").item(0))));
+						surveyUnitsIds.add(surveyUnit.getElementsByTagName("Id").item(0).getTextContent());
 					} else {
-						throw new BatchException("Surevy unit with id : " + surveyUnit.getElementsByTagName("Id").item(0).getTextContent().toString() + " is duplicated");
+						throw new BatchException("Surevy unit with id : " + surveyUnit.getElementsByTagName("Id").item(0).getTextContent() + " is duplicated");
 					}
 				}
 			}
@@ -468,7 +468,7 @@ public class XmlUtils {
 	 * @throws Exception 
 	 */
 	@SuppressWarnings("unchecked")
-	public static Personalization xmlToPersonalization(String fileName, Node personalization) throws Exception {
+	public static Personalization xmlToPersonalization(Node personalization) {
 		JSONArray jsonArray = new JSONArray();
 		if (personalization != null && (personalization.getChildNodes().getLength() > 1 || 
 				(personalization.getChildNodes().getLength() == 1 && personalization.getChildNodes().item(0).getNodeType() == Node.ELEMENT_NODE))) {
@@ -524,9 +524,10 @@ public class XmlUtils {
 	 * @throws Exception
 	 */
 	public static Data xmlToData(Element surveyUnit) throws Exception {
-		if(surveyUnit.getElementsByTagName("Data").item(0) != null)
-		return new Data(UUID.randomUUID(), dataXmlToJSON(surveyUnit.getElementsByTagName("Data").item(0)), null);
-		throw new BatchException("Surevy unit with id : " + surveyUnit.getElementsByTagName("Id").item(0).getTextContent().toString() + " does not have data");
+		if(surveyUnit.getElementsByTagName("Data").item(0) != null) {
+			return new Data(UUID.randomUUID(), dataXmlToJSON(surveyUnit.getElementsByTagName("Data").item(0)), null);
+		}
+		throw new BatchException("Surevy unit with id : " + surveyUnit.getElementsByTagName("Id").item(0).getTextContent() + " does not have data");
 	}
 
 	/**

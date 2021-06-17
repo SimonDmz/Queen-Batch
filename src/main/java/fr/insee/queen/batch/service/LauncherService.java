@@ -161,7 +161,7 @@ public class LauncherService {
 	
 	public boolean validQuestionnaireModel(AnnotationConfigApplicationContext context, String fileName) throws ValidateException, IOException {
 		QuestionnaireModelDao questionaireModelDao = context.getBean(QuestionnaireModelDao.class);
-		NodeList lstQuestionnaireModel = XmlUtils.getXmlNodeFile(fileName, "QuestionnaierModelId");
+		NodeList lstQuestionnaireModel = XmlUtils.getXmlNodeFile(fileName, "QuestionnaireModelId");
 		if (lstQuestionnaireModel != null) {
 			for (int itr = 0; itr < lstQuestionnaireModel.getLength(); itr++) {
 				Node nodeQuestionnaireModel = lstQuestionnaireModel.item(itr);
@@ -191,29 +191,29 @@ public class LauncherService {
 	public BatchErrorCode cleanAndReset(Model model, String in, 
 			String out, BatchErrorCode returnCode)
 			throws IOException, ValidateException {
-			String fileName = "";
+			String filename = "";
 			switch(returnCode) {
 			case KO_TECHNICAL_ERROR: 
 			case KO_FONCTIONAL_ERROR: 
 				if(this.fileName != null) {
-					fileName = model.getLabel() + "." + folderService.getCampaignName() + "." + PathUtils.getTimestampForPath() + ".error.xml";
+					filename = model.getLabel() + "." + folderService.getCampaignName() + "." + PathUtils.getTimestampForPath() + ".error.xml";
 				} else {
-					fileName = model.getLabel() + PathUtils.getTimestampForPath() + ".error.xml";
+					filename = model.getLabel() + PathUtils.getTimestampForPath() + ".error.xml";
 				}
 				break;
 			case OK_TECHNICAL_WARNING:
 			case OK_FONCTIONAL_WARNING:
 				if(this.fileName != null) {
-					fileName = model.getLabel() +  "." + folderService.getCampaignName() + "." + PathUtils.getTimestampForPath() + ".warning.xml";
+					filename = model.getLabel() +  "." + folderService.getCampaignName() + "." + PathUtils.getTimestampForPath() + ".warning.xml";
 				} else {
-					fileName = model.getLabel() + PathUtils.getTimestampForPath() + ".warning.xml";
+					filename = model.getLabel() + PathUtils.getTimestampForPath() + ".warning.xml";
 				}
 				break;
 			case OK:
 				if(this.fileName != null) {
-					fileName = model.getLabel() +  "." + folderService.getCampaignName() + "." + PathUtils.getTimestampForPath() + ".done.xml";
+					filename = model.getLabel() +  "." + folderService.getCampaignName() + "." + PathUtils.getTimestampForPath() + ".done.xml";
 				} else {
-					fileName = model.getLabel() + PathUtils.getTimestampForPath() + ".done.xml";
+					filename = model.getLabel() + PathUtils.getTimestampForPath() + ".done.xml";
 				}
 				break;
 			default:
@@ -229,20 +229,20 @@ public class LauncherService {
 			if(file.exists()) {
 				Path temp = null;
 				if(model.getLabel().equals(Model.SAMPLE.getLabel()) && PathUtils.isFileExist(in + "/processing/" + this.fileName)) {
-					temp = Files.move(Paths.get(in+ "/processing/" + this.fileName), Paths.get(out + "/"+model.getLabel()+"/" + fileName));
+					temp = Files.move(Paths.get(in+ "/processing/" + this.fileName), Paths.get(out + "/"+model.getLabel()+"/" + filename));
 				} else if(PathUtils.isFileExist(in+ "/"+model.getLabel()+"/"+model.getLabel()+".xml")){
-					temp = Files.move(Paths.get(in+ "/"+model.getLabel()+"/"+model.getLabel()+".xml"), Paths.get(out + "/"+model.getLabel()+"/" + fileName));
+					temp = Files.move(Paths.get(in+ "/"+model.getLabel()+"/"+model.getLabel()+".xml"), Paths.get(out + "/"+model.getLabel()+"/" + filename));
 				}
 				if (temp != null) {
-					logger.log(Level.INFO, Constants.MSG_FILE_MOVE_SUCCESS, fileName);
+					logger.log(Level.INFO, Constants.MSG_FILE_MOVE_SUCCESS, filename);
 				} else {
-					logger.log(Level.WARN,Constants.MSG_FAILED_MOVE_FILE, fileName);
+					logger.log(Level.WARN,Constants.MSG_FAILED_MOVE_FILE, filename);
 					if(returnCode != BatchErrorCode.KO_FONCTIONAL_ERROR) {
 						returnCode = BatchErrorCode.KO_TECHNICAL_ERROR;
 					}
 				}
 			} else {
-				logger.log(Level.WARN, Constants.MSG_FAILED_MOVE_FILE, fileName);
+				logger.log(Level.WARN, Constants.MSG_FAILED_MOVE_FILE, filename);
 				if(returnCode != BatchErrorCode.KO_FONCTIONAL_ERROR) {
 					returnCode = BatchErrorCode.KO_TECHNICAL_ERROR;
 				}

@@ -31,8 +31,4 @@ public interface CommentDao {
 	 */
 	void deleteCommentByCampaignId(String campaignId);
 
-	/**
-	 * Update the comment by a SU
-	 */
-	void updateComment(SurveyUnit surveyUnit) throws SQLException;
 }
