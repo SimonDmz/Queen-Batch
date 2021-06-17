@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Campaign>
+	<Id>simpsons2024x00</Id>
+	<Label>tseeet</Label>
+	<SurveyUnits>
+		<SurveyUnit>
+			<Id>SuNotExist5</Id>
+			<QuestionnaierModelId>simpsons</QuestionnaierModelId>
+			<Data>
+				<EXTERNAL />
+				<COLLECTED />
+			</Data>
+		</SurveyUnit>
+		<SurveyUnit>
+			<Id>SuNotExist6</Id>
+			<QuestionnaierModelId>simpsons</QuestionnaierModelId>
+			<Data>
+				<EXTERNAL />
+				<COLLECTED />
+			</Data>
+		</SurveyUnit>
+	</SurveyUnits>
+</Campaign>
