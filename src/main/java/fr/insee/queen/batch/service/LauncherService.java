@@ -161,7 +161,7 @@ public class LauncherService {
 	
 	public boolean validQuestionnaireModel(AnnotationConfigApplicationContext context, String fileName) throws ValidateException, IOException {
 		QuestionnaireModelDao questionaireModelDao = context.getBean(QuestionnaireModelDao.class);
-		NodeList lstQuestionnaireModel = XmlUtils.getXmlNodeFile(fileName, "QuestionnaierModelId");
+		NodeList lstQuestionnaireModel = XmlUtils.getXmlNodeFile(fileName, "QuestionnaireModelId");
 		if (lstQuestionnaireModel != null) {
 			for (int itr = 0; itr < lstQuestionnaireModel.getLength(); itr++) {
 				Node nodeQuestionnaireModel = lstQuestionnaireModel.item(itr);

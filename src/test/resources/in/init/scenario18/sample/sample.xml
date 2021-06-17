@@ -5,7 +5,7 @@
 	<SurveyUnits>
 		<SurveyUnit>
 			<Id>SuNotExist5</Id>
-			<QuestionnaierModelId>simpsons</QuestionnaierModelId>
+			<QuestionnaireModelId>simpsons</QuestionnaireModelId>
 			<Data>
 				<EXTERNAL />
 				<COLLECTED />
@@ -13,7 +13,7 @@
 		</SurveyUnit>
 		<SurveyUnit>
 			<Id>SuNotExist6</Id>
-			<QuestionnaierModelId>simpsons</QuestionnaierModelId>
+			<QuestionnaireModelId>simpsons</QuestionnaireModelId>
 			<Data>
 				<EXTERNAL />
 				<COLLECTED />

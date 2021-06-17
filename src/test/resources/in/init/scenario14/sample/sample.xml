@@ -5,7 +5,7 @@
 	<SurveyUnits>
 		<SurveyUnit>
 			<Id>ab123d33Rhfdf</Id>
-			<QuestionnaierModelId>test</QuestionnaierModelId>
+			<QuestionnaireModelId>test</QuestionnaireModelId>
 			<Data>
 				<EXTERNAL />
 				<COLLECTED />
@@ -23,7 +23,7 @@
 		</SurveyUnit>
 		<SurveyUnit>
 			<Id>fdsqvfe79fdaj</Id>
-			<QuestionnaierModelId>test</QuestionnaierModelId>
+			<QuestionnaireModelId>test</QuestionnaireModelId>
 			<Data>
 				<EXTERNAL />
 				<COLLECTED />

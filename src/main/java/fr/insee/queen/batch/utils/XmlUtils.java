@@ -413,7 +413,7 @@ public class XmlUtils {
 					Element surveyUnit = (Element) nodeSurveyUnit;
 					if(surveyUnit.getElementsByTagName("Id").item(0).getTextContent()!= null && 
 							!surveyUnitsIds.contains(surveyUnit.getElementsByTagName("Id").item(0).getTextContent())) {
-						QuestionnaireModel questionnaireModel = questionnaireModelDao.findById(surveyUnit.getElementsByTagName("QuestionnaierModelId").item(0).getTextContent());
+						QuestionnaireModel questionnaireModel = questionnaireModelDao.findById(surveyUnit.getElementsByTagName("QuestionnaireModelId").item(0).getTextContent());
 						questionnaireModel.setCampaignId(campaign.getId());
 						questionnaireModels.add(questionnaireModel);
 						surveyUnits.add(

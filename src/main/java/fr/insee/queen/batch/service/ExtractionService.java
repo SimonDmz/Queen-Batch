@@ -247,7 +247,7 @@ public class ExtractionService {
 	private Element getSurveyUnitContent(String suId, String qmId) throws Exception {
 		return new Element("SurveyUnit")
 					.addContent(new Element("Id").addContent(suId))
-					.addContent(new Element("QuestionnaierModelId").addContent(qmId))
+					.addContent(new Element("QuestionnaireModelId").addContent(qmId))
 					.addContent(getDataContent(suId))
 					.addContent(getPersonalizationContent(suId));
 	}
