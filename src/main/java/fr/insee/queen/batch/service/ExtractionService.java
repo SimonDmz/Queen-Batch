@@ -151,7 +151,7 @@ public class ExtractionService {
 			campaign
 					.addContent(new Element("Id").addContent(c.getId()))
 					.addContent(new Element("Label").addContent(c.getLabel()))
-					.addContent(getSureyUnitsElement(c, lstSu, out));
+					.addContent(getSureyUnitsElement(lstSu));
 			doc.setRootElement(campaign);
 			// Create the XML
 			XMLOutputter outter = new XMLOutputter();
@@ -225,11 +225,11 @@ public class ExtractionService {
 	 * @return
 	 * @throws Exception
 	 */
-	private Element getSureyUnitsElement(Campaign c, List<String> lstSu, String out) throws Exception {
+	private Element getSureyUnitsElement(List<String> lstSu) throws Exception {
 		Element surveyUnits = new Element("SurveyUnits");
 		for (String suId : lstSu) {
 			String qmId = surveyUnitDao.findQuestionnaireIdBySurveyUnitId(suId);
-			surveyUnits.addContent(getSurveyUnitContent(suId, qmId, out, c.getId()));
+			surveyUnits.addContent(getSurveyUnitContent(suId, qmId));
 		}
 		return surveyUnits;
 
@@ -244,7 +244,7 @@ public class ExtractionService {
 	 * @return
 	 * @throws Exception
 	 */
-	private Element getSurveyUnitContent(String suId, String qmId, String out, String campaignId) throws Exception {
+	private Element getSurveyUnitContent(String suId, String qmId) throws Exception {
 		return new Element("SurveyUnit")
 					.addContent(new Element("Id").addContent(suId))
 					.addContent(new Element("QuestionnaierModelId").addContent(qmId))

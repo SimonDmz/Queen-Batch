@@ -15,6 +15,11 @@ public class Constants {
 	public static final String MSG_RETURN_CODE = "CODE RETOUR BATCH : {}";
 	public static final String MSG_FAILED_MOVE_FILE = "Failed to move the file {}";
 	public static final String MSG_FILE_MOVE_SUCCESS = "File {} renamed and moved successfully";
+	
+	public static final String COMMENT = "comment";
+	public static final String DATA = "data";
+	public static final String SURVEY_UNIT = "survey_unit";
+	public static final String CAMPAIGN_ID = "campaign.id";
 
 	private Constants() {
 

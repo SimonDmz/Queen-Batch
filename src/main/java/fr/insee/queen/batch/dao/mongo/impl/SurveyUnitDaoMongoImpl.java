@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import fr.insee.queen.batch.Constants;
 import fr.insee.queen.batch.config.ConditonMongo;
 import fr.insee.queen.batch.dao.CampaignDao;
 import fr.insee.queen.batch.dao.SurveyUnitDao;
@@ -41,7 +42,7 @@ public class SurveyUnitDaoMongoImpl implements SurveyUnitDao {
 	 */
 	@Override
 	public void createSurveyUnit(SurveyUnit surveyUnit) {
-	    mongoTemplate.save(surveyUnit, "survey_unit");
+	    mongoTemplate.save(surveyUnit, Constants.SURVEY_UNIT);
 	}
 
 	/**
@@ -54,7 +55,7 @@ public class SurveyUnitDaoMongoImpl implements SurveyUnitDao {
 	public boolean existSurveyUnit(String xmlId) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("_id").is(xmlId));
-		return mongoTemplate.findOne(query, SurveyUnit.class, "survey_unit") != null;
+		return mongoTemplate.findOne(query, SurveyUnit.class, Constants.SURVEY_UNIT) != null;
 	}
 
 	/**
@@ -65,8 +66,8 @@ public class SurveyUnitDaoMongoImpl implements SurveyUnitDao {
 	@Override
 	public List<String> getAllSurveyUnitByCamapignId(String campaignId) {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("campaign.id").is(campaignId));
-		List<SurveyUnit> surveyUnits = mongoTemplate.find(query, SurveyUnit.class, "survey_unit");
+		query.addCriteria(Criteria.where(Constants.CAMPAIGN_ID).is(campaignId));
+		List<SurveyUnit> surveyUnits = mongoTemplate.find(query, SurveyUnit.class, Constants.SURVEY_UNIT);
 		List<String> surveyIds = new ArrayList<>();
 		if(!surveyUnits.isEmpty()) {
 			for(SurveyUnit su : surveyUnits) {
@@ -87,7 +88,7 @@ public class SurveyUnitDaoMongoImpl implements SurveyUnitDao {
 		lstSu.stream().forEach(su -> {
 			Query query = new Query();
 			query.addCriteria(Criteria.where("id").is(su));
-			SurveyUnit suTemp = mongoTemplate.findOne(query, SurveyUnit.class, "survey_unit");
+			SurveyUnit suTemp = mongoTemplate.findOne(query, SurveyUnit.class, Constants.SURVEY_UNIT);
 			if(suTemp == null) {
 				unexistingSu.add(su);
 			}
@@ -103,10 +104,10 @@ public class SurveyUnitDaoMongoImpl implements SurveyUnitDao {
 	public void deleteSurveyUnits(List<String> lstSu) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("id").in(lstSu));
-		List<SurveyUnit> suList = mongoTemplate.find(query, SurveyUnit.class, "survey_unit");
+		List<SurveyUnit> suList = mongoTemplate.find(query, SurveyUnit.class, Constants.SURVEY_UNIT);
 		suList.stream().forEach(su -> {
 			if(su != null) {
-				mongoTemplate.remove(su, "survey_unit");
+				mongoTemplate.remove(su, Constants.SURVEY_UNIT);
 			}
 		});
 	}
@@ -118,11 +119,11 @@ public class SurveyUnitDaoMongoImpl implements SurveyUnitDao {
 	@Override
 	public void deleteSurveyUnitByCampaignId(String campaignId) {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("campaign.id").is(campaignId));
-		List<SurveyUnit> suList = mongoTemplate.find(query, SurveyUnit.class, "survey_unit");
+		query.addCriteria(Criteria.where(Constants.CAMPAIGN_ID).is(campaignId));
+		List<SurveyUnit> suList = mongoTemplate.find(query, SurveyUnit.class, Constants.SURVEY_UNIT);
 		suList.stream().forEach(su -> {
 			if(su != null) {
-				mongoTemplate.remove(su, "survey_unit");
+				mongoTemplate.remove(su, Constants.SURVEY_UNIT);
 			}
 		});
 	}
@@ -135,13 +136,13 @@ public class SurveyUnitDaoMongoImpl implements SurveyUnitDao {
 	public void updateSurveyUnit(SurveyUnit surveyUnit) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("id").is(surveyUnit.getId()));
-		SurveyUnit su = mongoTemplate.findOne(query, SurveyUnit.class, "survey_unit");
+		SurveyUnit su = mongoTemplate.findOne(query, SurveyUnit.class, Constants.SURVEY_UNIT);
 		su.setCampaign(surveyUnit.getCampaign());
 		su.setComment(surveyUnit.getComment());
 		su.setData(surveyUnit.getData());
 		su.setPersonalization(surveyUnit.getPersonalization());
 		su.setStateData(surveyUnit.getStateData());
-		mongoTemplate.save(su, "survey_unit");
+		mongoTemplate.save(su, Constants.SURVEY_UNIT);
 	}
 
 	/**
@@ -154,7 +155,7 @@ public class SurveyUnitDaoMongoImpl implements SurveyUnitDao {
 		Query query = new Query();
 		query.fields().include("questionnaireModel.id");
 		query.addCriteria(Criteria.where("id").is(id));
-		return mongoTemplate.findOne(query, SurveyUnit.class, "survey_unit").getQuestionnaireModel().getId();
+		return mongoTemplate.findOne(query, SurveyUnit.class, Constants.SURVEY_UNIT).getQuestionnaireModel().getId();
 	}
 
 	/**
@@ -164,7 +165,7 @@ public class SurveyUnitDaoMongoImpl implements SurveyUnitDao {
 	@Override
 	public void deleteMetaDataByCampaignId(String id) {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("campaign.id").is(id));
+		query.addCriteria(Criteria.where(Constants.CAMPAIGN_ID).is(id));
 		List<Metadata> mdList = mongoTemplate.find(query, Metadata.class, "metadata");
 		mdList.stream().forEach(md -> {
 			if(md != null) {
