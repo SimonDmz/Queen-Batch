@@ -52,9 +52,9 @@ public class DatasetService {
 		Nomenclature nomenclatureRegions2019 = new Nomenclature("regions2019", "french regions 2019", new JSONArray());
 		nomenclatureDao.create(nomenclatureCities2019);
 		nomenclatureDao.create(nomenclatureRegions2019);
-		QuestionnaireModel questionnaireSimpsons = new QuestionnaireModel("simpsons", "Questionnaire about the Simpsons tv show", new JSONObject(), "simpsons2020x00");
+		QuestionnaireModel questionnaireSimpsons = new QuestionnaireModel("simpsons", "Questionnaire about the Simpsons tv show", new JSONObject(), "SIMPSONS2020X00");
 		questionnaireModelDao.create(questionnaireSimpsons, null);
-		Campaign campaignSimpsons = new Campaign("simpsons2020x00", "Survey on the Simpsons tv show 2020");
+		Campaign campaignSimpsons = new Campaign("SIMPSONS2020X00", "Survey on the Simpsons tv show 2020");
 		campaignSimpsons.setQuestionnaireModels(List.of(questionnaireSimpsons));
 		campaignDao.create(campaignSimpsons);
 		Personalization personalization = new Personalization();

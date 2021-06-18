@@ -25,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.Environment;
@@ -175,6 +176,9 @@ public class LoadService {
 
 	private BatchErrorCode createOrUpdateCampaign(Sample sample, String pathSampleOut, BatchErrorCode returnCode) throws DataBaseException, SQLException {
 		try {
+			// Forcing uppercase
+			sample.getCampaign().setId(sample.getCampaign().getId().toUpperCase());
+			
 			if(databaseService.isJpaDatabase()) {
 				connection.setAutoCommit(false);
 			} 
@@ -205,7 +209,7 @@ public class LoadService {
 	}
 
 	private BatchErrorCode createOrUpdateSurveyUnit(Sample sample, String pathSampleOut, BatchErrorCode returnCode) throws IOException, ParserConfigurationException, SAXException, 
-	SQLException, XPathExpressionException, TransformerFactoryConfigurationError, TransformerException {
+	SQLException, XPathExpressionException, TransformerFactoryConfigurationError, TransformerException, ParseException {
 		// Duplicate sample xml file
 		String sampleErrorList = pathSampleOut + "/sample." + sample.getCampaign().getId() + PathUtils.getTimestampForPath() + ".error.list.xml";
 		FileUtils.copyFile(new File(sample.getFileName()), new File(sampleErrorList));

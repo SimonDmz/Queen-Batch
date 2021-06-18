@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -89,22 +88,22 @@ public abstract class TestEndToEnd {
 		purgeDirectory(new File("src/test/resources/out/nomenclatures"));
 		purgeDirectory(new File("src/test/resources/out/sample"));
 		purgeDirectory(new File("src/test/resources/out/extractdata"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2020x00/complete/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2020x00/complete/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2022x00/complete/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2022x00/complete/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2023x00/complete/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2023x00/complete/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2024x00/complete/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2024x00/complete/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2020x00/differential/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2020x00/differential/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2022x00/differential/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2022x00/differential/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2023x00/differential/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2023x00/differential/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2024x00/differential/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2024x00/differential/paradata"));
+		purgeDirectory(new File("src/test/resources/out/extractdata/SIMPSONS2020X00/complete/data"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/SIMPSONS2020X00/complete/paradata"));
+		purgeDirectory(new File("src/test/resources/out/extractdata/SIMPSONS2022X00/complete/data"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/SIMPSONS2022X00/complete/paradata"));
+		purgeDirectory(new File("src/test/resources/out/extractdata/SIMPSONS2023X00/complete/data"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/SIMPSONS2023X00/complete/paradata"));
+		purgeDirectory(new File("src/test/resources/out/extractdata/SIMPSONS2024X00/complete/data"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/SIMPSONS2024X00/complete/paradata"));
+		purgeDirectory(new File("src/test/resources/out/extractdata/SIMPSONS2020X00/differential/data"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/SIMPSONS2020X00/differential/paradata"));
+		purgeDirectory(new File("src/test/resources/out/extractdata/SIMPSONS2022X00/differential/data"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/SIMPSONS2022X00/differential/paradata"));
+		purgeDirectory(new File("src/test/resources/out/extractdata/SIMPSONS2023X00/differential/data"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/SIMPSONS2023X00/differential/paradata"));
+		purgeDirectory(new File("src/test/resources/out/extractdata/SIMPSONS2024X00/differential/data"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/SIMPSONS2024X00/differential/paradata"));
 	}
 	
 	/**
@@ -299,9 +298,9 @@ public abstract class TestEndToEnd {
 	public void testScenario11() throws Exception {
 		String out = "src/test/resources/out";
 		assertEquals(BatchErrorCode.OK, extractionService.extract(BatchOption.EXTRACTDATA, out));
-		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/extractdata/simpsons2020x00/differential/data"),
+		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/extractdata/SIMPSONS2020X00/differential/data"),
 				"data", "xml"));
-		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/extractdata/simpsons2020x00/differential/paradata"),
+		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/extractdata/SIMPSONS2020X00/differential/paradata"),
 				"paradata", "json"));
 	}
 	
@@ -375,7 +374,7 @@ public abstract class TestEndToEnd {
 		assertEquals(BatchErrorCode.OK, launcherService.validateTreatCleanBatch(BatchOption.DELETEDATA, in, out));
 		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/sample"),
 				"sample", "done.xml"));
-		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/extractdata/simpsons2020x00/differential/data"),
+		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/extractdata/SIMPSONS2020X00/differential/data"),
 				"data", "xml"));
 	}
 	
@@ -390,7 +389,7 @@ public abstract class TestEndToEnd {
 		assertEquals(BatchErrorCode.OK_FONCTIONAL_WARNING, launcherService.validateTreatCleanBatch(BatchOption.DELETEDATA, in, out));
 		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/sample"),
 				"sample", "warning.xml"));
-		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/extractdata/simpsons2020x00/differential/data"),
+		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/extractdata/SIMPSONS2020X00/differential/data"),
 				"data", "xml"));
 	}
 	
@@ -405,7 +404,7 @@ public abstract class TestEndToEnd {
 		assertEquals(BatchErrorCode.OK, launcherService.validateTreatCleanBatch(BatchOption.DELETEDATA, in, out));
 		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/sample"),
 				"sample", "done.xml"));
-		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/extractdata/simpsons2020x00/complete/data"),
+		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/extractdata/SIMPSONS2020X00/complete/data"),
 				"data", "xml"));
 	}
 	
@@ -434,9 +433,9 @@ public abstract class TestEndToEnd {
 	public void testScenario19() throws Exception {
 		String out = "src/test/resources/out";
 		assertEquals(BatchErrorCode.OK, extractionService.extract(BatchOption.EXTRACTDATACOMPLETE, out));
-		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/extractdata/simpsons2020x00/complete/data"),
+		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/extractdata/SIMPSONS2020X00/complete/data"),
 				"data", "xml"));
-		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/extractdata/simpsons2020x00/complete/paradata"),
+		assertEquals(true, PathUtils.isDirContainsErrorFile(Path.of("src/test/resources/out/extractdata/SIMPSONS2020X00/complete/paradata"),
 				"paradata", "json"));
 	}
 }
