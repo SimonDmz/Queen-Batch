@@ -1,6 +1,5 @@
 package fr.insee.queen.batch;
 
-import java.io.File;
 import java.io.IOException;
 
 import org.apache.logging.log4j.Level;
@@ -8,7 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.Configurator;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -86,40 +84,6 @@ public class TestEndToEndJpa extends TestEndToEnd {
 		System.setProperty("fr.insee.queen.defaultSchema", "public");
 		Configurator.setAllLevels("", Level.INFO);
 	}	
-	
-	@AfterEach
-	public void cleanOutFolder() {
-		purgeDirectory(new File("src/test/resources/out/nomenclatures/json"));
-		purgeDirectory(new File("src/test/resources/out/nomenclatures"));
-		purgeDirectory(new File("src/test/resources/out/sample"));
-		purgeDirectory(new File("src/test/resources/out/extractdata"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2020x00/complete/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2020x00/complete/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2022x00/complete/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2022x00/complete/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2023x00/complete/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2023x00/complete/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2024x00/complete/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2024x00/complete/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2020x00/differential/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2020x00/differential/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2022x00/differential/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2022x00/differential/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2023x00/differential/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2023x00/differential/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2024x00/differential/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2024x00/differential/paradata"));
-	}
-	
-	void purgeDirectory(File dir) {
-		if(dir.exists()) {
-			for (File file: dir.listFiles()) {
-		        if (file.exists() && file.isFile()) {
-		        	file.delete();
-		        }
-		    }
-		}
-	}
 	
 	@AfterAll
 	public static void closeContainer() {

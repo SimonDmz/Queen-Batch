@@ -202,6 +202,7 @@ public class ExtractionService {
 				FileWriter fileWriter = new FileWriter(fileName.toString(), true);
 				fileWriter.write(gson.toJson(JsonParser.parseString(paradataEventDao.findBySurveyUnitId(id).toJSONString())));
 				fileWriter.flush();
+				fileWriter.close();
 			}
 			lstSu.stream().forEach(id -> stateDataDao.updateSurveyUnitStateById(id, "EXTRACTED"));
 		} catch (Exception e) {

@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -70,6 +71,40 @@ public abstract class TestEndToEnd {
 		if (!extractdataOutDir.exists()) {
 			extractdataOutDir.mkdir();
 		}
+	}
+	
+	void purgeDirectory(File dir) {
+		if(dir.exists()) {
+			for (File file: dir.listFiles()) {
+		        if (file.exists() && file.isFile()) {
+		        	file.delete();
+		        }
+		    }
+		}
+	}
+	
+	@AfterEach
+	public void cleanOutFolder() {
+		purgeDirectory(new File("src/test/resources/out/nomenclatures/json"));
+		purgeDirectory(new File("src/test/resources/out/nomenclatures"));
+		purgeDirectory(new File("src/test/resources/out/sample"));
+		purgeDirectory(new File("src/test/resources/out/extractdata"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2020x00/complete/data"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2020x00/complete/paradata"));
+		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2022x00/complete/data"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2022x00/complete/paradata"));
+		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2023x00/complete/data"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2023x00/complete/paradata"));
+		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2024x00/complete/data"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2024x00/complete/paradata"));
+		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2020x00/differential/data"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2020x00/differential/paradata"));
+		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2022x00/differential/data"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2022x00/differential/paradata"));
+		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2023x00/differential/data"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2023x00/differential/paradata"));
+		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2024x00/differential/data"));		
+		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2024x00/differential/paradata"));
 	}
 	
 	/**
