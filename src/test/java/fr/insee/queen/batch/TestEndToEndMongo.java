@@ -1,6 +1,5 @@
 package fr.insee.queen.batch;
 
-import java.io.File;
 import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
@@ -75,40 +74,6 @@ public class TestEndToEndMongo extends TestEndToEnd {
 		System.setProperty("fr.insee.queen.folder.in", "src/test/resources/in");
 		System.setProperty("fr.insee.queen.folder.out", "src/test/resources/out");
 		System.setProperty("spring.data.mongodb.uri", mongoDBContainer.getReplicaSetUrl());
-	}
-	
-	@AfterEach
-	public void cleanOutFolder() {
-		purgeDirectory(new File("src/test/resources/out/nomenclatures/json"));
-		purgeDirectory(new File("src/test/resources/out/nomenclatures"));
-		purgeDirectory(new File("src/test/resources/out/sample"));
-		purgeDirectory(new File("src/test/resources/out/extractdata"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2020x00/complete/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2020x00/complete/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2022x00/complete/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2022x00/complete/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2023x00/complete/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2023x00/complete/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2024x00/complete/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2024x00/complete/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2020x00/differential/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2020x00/differential/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2022x00/differential/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2022x00/differential/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2023x00/differential/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2023x00/differential/paradata"));
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2024x00/differential/data"));		
-		purgeDirectory(new File("src/test/resources/out/extractdata/simpsons2024x00/differential/paradata"));
-	}
-	
-	void purgeDirectory(File dir) {
-		if(dir.exists()) {
-			for (File file: dir.listFiles()) {
-		        if (file.exists() && file.isFile()) {
-		        	file.delete();
-		        }
-		    }
-		}
 	}
 	
 	@AfterAll
