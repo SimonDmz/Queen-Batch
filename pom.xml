@@ -21,6 +21,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.compiler.release>11</maven.compiler.release>
 		<saxon.version>9.7.0-8</saxon.version>
+		<lunatic.model.version>2.1.1</lunatic.model.version>
 	</properties>
 
 	<dependencies>
@@ -128,7 +129,7 @@
 		<dependency>
 			<groupId>fr.insee.lunatic</groupId>
 			<artifactId>lunatic-model</artifactId>
-			<version>2.1.1</version>
+			<version>${lunatic.model.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>xml-apis</groupId>
