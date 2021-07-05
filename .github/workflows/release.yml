@@ -16,6 +16,11 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      - name: Get lunatic-model version
+        id: lunatic
+        run: echo "::set-output name=prop::$(mvn -f pom.xml help:evaluate -Dexpression=lunatic.model.version -q -DforceStdout)"
+      - name: Install lunatic-model
+        run: mvn install:install-file -Dfile=lib/lunatic-model-${{steps.lunatic.outputs.prop}}.jar -DgroupId=fr.insee.lunatic -DartifactId=lunatic-model -Dversion=${{steps.lunatic.outputs.prop}} -Dpackaging=jar
       - name: Build with Maven
         run: mvn install --file pom.xml
       - name: Upload jar
