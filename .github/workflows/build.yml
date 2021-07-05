@@ -18,6 +18,8 @@ jobs:
         id: version
         run: echo "::set-output name=prop::$(mvn -f pom.xml help:evaluate -Dexpression=project.version -q -DforceStdout)"
       - run: echo ${{steps.version.outputs.prop}}
+      - name: Install lunatic-model lib
+        run: mvn install:install-file -Dfile=lib/lunatic-model-2.1.1.jar -DgroupId=fr.insee.lunatic -DartifactId=lunatic-model -Dversion=2.1.1 -Dpackaging=jar
       - name: Build with Maven
         run: mvn install --file pom.xml
       - name: Upload jar
