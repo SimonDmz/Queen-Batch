@@ -24,6 +24,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
@@ -71,6 +72,7 @@ public class ExtractionService {
 	DatabaseService databaseService;
 	
 	@Autowired(required=false)
+	@Qualifier("connection")
 	Connection connection;
 	
 	BatchOption batchOption;

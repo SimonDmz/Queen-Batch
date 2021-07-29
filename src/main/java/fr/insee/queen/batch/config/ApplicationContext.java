@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -69,7 +71,7 @@ public class ApplicationContext {
 	 * This method create a new Datasource object
 	 * @return new Datasource
 	 */
-	@Bean
+	@Bean("dataSource")
 	@Conditional(value= ConditonJpa.class)
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -86,9 +88,9 @@ public class ApplicationContext {
 	 * @return Connection
 	 * @throws SQLException 
 	 */
-	@Bean
+	@Bean("connection")
 	@Conditional(value= ConditonJpa.class)
-	public Connection connection(DataSource dataSource) throws SQLException {
+	public Connection connection(@Autowired @Qualifier("dataSource") DataSource dataSource) throws SQLException {
 		return DataSourceUtils.getConnection(dataSource);
 	}
 	
@@ -97,9 +99,9 @@ public class ApplicationContext {
 	 * @param dataSource
 	 * @return JdbcTemplate
 	 */
-	@Bean
+	@Bean("jdbcTemplate")
 	@Conditional(value= ConditonJpa.class)
-	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+	public JdbcTemplate jdbcTemplate(@Autowired @Qualifier("dataSource") DataSource dataSource) {
 		JdbcTemplate jdbcTemplate = null;
 		try {
 			jdbcTemplate = new JdbcTemplate(new SingleConnectionDataSource(connection(dataSource), false));

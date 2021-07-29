@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -24,6 +25,7 @@ import fr.insee.queen.batch.object.Campaign;
 public class CampaignDaoJpaImpl implements CampaignDao {
 	
 	@Autowired
+	@Qualifier("jdbcTemplate")
 	JdbcTemplate jdbcTemplate;
 
 	/**
