@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.core.env.Environment;
@@ -36,6 +37,7 @@ public class DatabaseService {
 	Environment env;
 	
 	@Autowired(required=false)
+	@Qualifier("dataSource")
 	DataSource dataSource;
 	
 	@Autowired(required=false)

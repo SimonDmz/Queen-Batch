@@ -27,6 +27,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -64,16 +65,22 @@ import fr.insee.queen.batch.utils.XmlUtils;
 public class LoadService {
 
 	private static final Logger logger = LogManager.getLogger(LoadService.class);
-	
+	@Autowired
 	QuestionnaireModelDao questionnaireModelDao;
+	@Autowired
 	CampaignDao campaignDao;
+	@Autowired
 	SurveyUnitDao surveyUnitDao;
+	@Autowired
 	DataDao dataDao;
+	@Autowired
 	CommentDao commentDao;
-	RequiredNomenclatureDao requiredNomenclatureDao;
-	PersonalizationDao personalizationDao;
-	
 	@Autowired(required=false)
+	RequiredNomenclatureDao requiredNomenclatureDao;
+	@Autowired
+	PersonalizationDao personalizationDao;
+	@Autowired(required=false)
+	@Qualifier("connection")
 	Connection connection;
 	
 	@Autowired
@@ -277,5 +284,29 @@ public class LoadService {
 		}
 		return returnCode;
 					
+	}
+	
+	public void createOrUpdateSurveyUnit(SurveyUnit surveyUnit) throws SQLException {
+		if (!surveyUnitDao.existSurveyUnit(surveyUnit.getId())) {
+			logger.log(Level.WARN, "Create Survey Unit {}", surveyUnit.getId());
+			// Create Survey Unit
+			surveyUnitDao.createSurveyUnit(surveyUnit);
+			// Create Data
+			dataDao.createData(surveyUnit);
+			if(surveyUnit.getPersonalization() != null) {
+				// Create Personalization
+				personalizationDao.createPersonalization(surveyUnit);
+			}
+			// Create Empty Comment
+			commentDao.createComment(surveyUnit);
+		} else {
+			//if the SU already exist we update
+			logger.log(Level.WARN, "Update Survey Unit {}", surveyUnit.getId());
+			surveyUnitDao.updateSurveyUnit(surveyUnit);
+			dataDao.updateData(surveyUnit);
+			if(surveyUnit.getPersonalization() != null) {
+				personalizationDao.updatePersonalization(surveyUnit);
+			}
+		}
 	}
 }

@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -69,6 +70,7 @@ public class DeleteService {
 	XmlUtils xmlUtils;
 	
 	@Autowired(required=false)
+	@Qualifier("connection")
 	Connection connection;
 	
 	@Autowired

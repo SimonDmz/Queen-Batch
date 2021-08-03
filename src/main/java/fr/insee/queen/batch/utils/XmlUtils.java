@@ -359,7 +359,9 @@ public class XmlUtils {
 					Element e = (Element) nodeCampaign;
 					campaign = new Campaign();
 					campaign.setId(e.getElementsByTagName("Id").item(0).getTextContent());
-					campaign.setLabel(e.getElementsByTagName("Label").item(0).getTextContent());
+					if(e.getElementsByTagName("Label").item(0)!=null) {
+						campaign.setLabel(e.getElementsByTagName("Label").item(0).getTextContent());
+					}
 				}
 			}
 		} else {
@@ -413,7 +415,12 @@ public class XmlUtils {
 					Element surveyUnit = (Element) nodeSurveyUnit;
 					if(surveyUnit.getElementsByTagName("Id").item(0).getTextContent()!= null && 
 							!surveyUnitsIds.contains(surveyUnit.getElementsByTagName("Id").item(0).getTextContent())) {
-						QuestionnaireModel questionnaireModel = questionnaireModelDao.findById(surveyUnit.getElementsByTagName("QuestionnaireModelId").item(0).getTextContent());
+						QuestionnaireModel questionnaireModel = new QuestionnaireModel();
+						try{
+							questionnaireModel = questionnaireModelDao.findById(surveyUnit.getElementsByTagName("QuestionnaireModelId").item(0).getTextContent());
+						}catch (Exception e) {
+							throw new ValidateException(String.format("Error on find questionnaire by id %s : %s",surveyUnit.getElementsByTagName("QuestionnaireModelId").item(0).getTextContent(), e.getMessage()));
+						}
 						questionnaireModel.setCampaignId(campaign.getId());
 						questionnaireModels.add(questionnaireModel);
 						surveyUnits.add(

@@ -57,6 +57,9 @@ public class DatasetService {
 		Campaign campaignSimpsons = new Campaign("SIMPSONS2020X00", "Survey on the Simpsons tv show 2020");
 		campaignSimpsons.setQuestionnaireModels(List.of(questionnaireSimpsons));
 		campaignDao.create(campaignSimpsons);
+		Campaign campaignSimpsons2021 = new Campaign("SIMPSONS2021X00", "Survey on the Simpsons tv show 2021");
+		campaignSimpsons2021.setQuestionnaireModels(List.of(questionnaireSimpsons));
+		campaignDao.create(campaignSimpsons2021);
 		Personalization personalization = new Personalization();
 		personalization.setId(UUID.randomUUID());
 		personalization.setValue(new JSONArray());

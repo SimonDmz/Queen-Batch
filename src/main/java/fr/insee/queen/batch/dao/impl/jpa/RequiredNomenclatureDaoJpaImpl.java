@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import fr.insee.queen.batch.object.Nomenclature;
 public class RequiredNomenclatureDaoJpaImpl implements RequiredNomenclatureDao{
 	
 	@Autowired
+	@Qualifier("jdbcTemplate")
 	JdbcTemplate jdbcTemplate;
 
 	/**

@@ -11,6 +11,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.postgresql.util.PGobject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ import fr.insee.queen.batch.service.DatabaseService;
 public class ParadataEventDaoJpaImpl implements ParadataEventDao{
 
 	@Autowired
+	@Qualifier("jdbcTemplate")
 	JdbcTemplate jdbcTemplate;
 	
 	@Autowired
