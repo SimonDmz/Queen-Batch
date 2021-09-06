@@ -23,13 +23,6 @@ jobs:
           run: mvn install:install-file -Dfile=lib/lunatic-model-${{steps.lunatic.outputs.prop}}.jar -DgroupId=fr.insee.lunatic -DartifactId=lunatic-model -Dversion=${{steps.lunatic.outputs.prop}} -Dpackaging=jar
         - name: Build with Maven
           run: mvn install --file pom.xml
-        - name: Upload jar
-          uses: actions/upload-artifact@v2
-          with:
-            name: jar
-            path: target/*.jar
-        - name: Checkout current branch
-          uses: actions/checkout@v2
         - name: Get current version
           id: version
           run: echo "::set-output name=prop::$(mvn -f pom.xml help:evaluate -Dexpression=project.version -q -DforceStdout)"
