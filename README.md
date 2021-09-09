@@ -9,7 +9,7 @@ For building and running the application you need:
 
 # Add lunatic librairy to project
 ``` shell
-mvn install:install-file -Dfile=lib/lunatic-model-2.1.1.jar -DgroupId=fr.insee.lunatic -DartifactId=lunatic-model -Dversion=2.1.1 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/lunatic-model-2.2.3.jar -DgroupId=fr.insee.lunatic -DartifactId=lunatic-model -Dversion=2.2.3 -Dpackaging=jar
 ```
 
 ## Install and excute unit tests and ent-to-end tests

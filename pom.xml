@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.insee.queen</groupId>
 	<artifactId>queen-batch</artifactId>
-	<version>4.1.4</version>
+	<version>4.1.5</version>
 	<packaging>jar</packaging>
 	<name>QueenBatch</name>
 	<description>Queen Batch</description>
@@ -21,7 +21,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.compiler.release>11</maven.compiler.release>
 		<saxon.version>9.7.0-8</saxon.version>
-		<lunatic.model.version>2.1.1</lunatic.model.version>
+		<lunatic.model.version>2.2.3</lunatic.model.version>
 	</properties>
 
 	<dependencies>
@@ -276,7 +276,7 @@
 				<configuration>
 					<appendAssemblyId>false</appendAssemblyId>
 					<descriptors>
-						<descriptor>src/main/assembly/jar.xml</descriptor>        
+						<descriptor>src/main/assembly/jar.xml</descriptor>
 					</descriptors>
 				</configuration>
 				<executions>
