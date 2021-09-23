@@ -176,7 +176,7 @@ public class SurveyUnitDaoJpaImpl implements SurveyUnitDao {
 			su.setId(rs.getString("id"));
 			su.getCampaign().setId(rs.getString("campaign_id"));
 			su.getStateData().setState(rs.getString("state"));
-			su.getStateData().setCurrentPage(rs.getString("current_page"));
+			
 			return su;
 		}
 	}
