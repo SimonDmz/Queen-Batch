@@ -1,13 +1,16 @@
 package fr.insee.queen.batch.dao.impl.jpa;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import fr.insee.queen.batch.object.QuestionnaireModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import fr.insee.queen.batch.config.ConditonJpa;
@@ -63,6 +66,19 @@ public class SurveyUnitDaoJpaImpl implements SurveyUnitDao {
 		StringBuilder qString =new StringBuilder( "SELECT id FROM survey_unit WHERE campaign_id=?");
 		return jdbcTemplate.queryForList(qString.toString(), new Object[]{campaignId}, String.class); 
 	}
+
+	/**
+	 * Get all SU for a campaign and a given state (StateData)
+	 * @param campaignId, state
+	 * @return
+	 */
+	@Override
+	public List<SurveyUnit> getAllSurveyUnitsByCampaignIdByState(String state, String campaignId){
+		StringBuilder qString = new StringBuilder("SELECT su.id, stateData.state FROM survey_unit AS su ")
+				.append("INNER JOIN state_data AS stateData ON stateData.survey_unit_id = su.id ")
+				.append("WHERE stateData.state = ? AND su.campaign_id=?");
+		return jdbcTemplate.query(qString.toString(), new Object[]{campaignId}, new SurveyUnitMapper());
+}
 
 	/**
 	 * Get unexisting SurveyUnits
@@ -148,6 +164,21 @@ public class SurveyUnitDaoJpaImpl implements SurveyUnitDao {
 		.append("INNER JOIN state_data AS stateData ON stateData.survey_unit_id = su.id ")
 		.append("WHERE stateData.state = 'VALIDATED' AND su.campaign_id=?");
 		return jdbcTemplate.queryForList(qString.toString(), new Object[]{campaignId}, String.class);
+	}
+
+	/**
+	 * Implements the mapping between the result of the query and the QuestionnaireModel entity
+	 * @return QuestionnaireModelMapper
+	 */
+	private static final class SurveyUnitMapper implements RowMapper<SurveyUnit> {
+		public SurveyUnit mapRow(ResultSet rs, int rowNum) throws SQLException         {
+			SurveyUnit su = new SurveyUnit();
+			su.setId(rs.getString("id"));
+			su.getCampaign().setId(rs.getString("campaign_id"));
+			su.getStateData().setState(rs.getString("state"));
+			su.getStateData().setCurrentPage(rs.getString("current_page"));
+			return su;
+		}
 	}
 }
 
