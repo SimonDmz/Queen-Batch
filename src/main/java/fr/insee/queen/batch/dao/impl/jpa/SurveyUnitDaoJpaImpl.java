@@ -74,7 +74,7 @@ public class SurveyUnitDaoJpaImpl implements SurveyUnitDao {
 	 */
 	@Override
 	public List<SurveyUnit> getAllSurveyUnitsByCampaignIdByState(String state, String campaignId){
-		StringBuilder qString = new StringBuilder("SELECT su.id, stateData.state FROM survey_unit AS su ")
+		StringBuilder qString = new StringBuilder("SELECT su.id, su.campaign_id, stateData.state FROM survey_unit AS su ")
 				.append("INNER JOIN state_data AS stateData ON stateData.survey_unit_id = su.id ")
 				.append("WHERE stateData.state = ? AND su.campaign_id=?");
 		return jdbcTemplate.query(qString.toString(), new Object[]{campaignId}, new SurveyUnitMapper());
