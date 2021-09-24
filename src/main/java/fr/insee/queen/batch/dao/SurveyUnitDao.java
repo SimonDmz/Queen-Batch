@@ -33,11 +33,11 @@ public interface SurveyUnitDao {
 	List<String> getAllSurveyUnitByCamapignId(String campaignId);
 
 	/**
-	 * Get all SU for a campaign and a given state (StateData)
-	 * @param campaignId, state
+	 * Get all SU with state not null for a campaign
+	 * @param campaignId
 	 * @return
 	 */
-	List<SurveyUnit> getAllSurveyUnitsByCampaignIdByState(String campaignId, String state);
+	List<SurveyUnit> getAllSurveyUnitsWithStateByCampaignId(String campaignId);
 
 	/**
 	 * Get unexisting SurveyUnits

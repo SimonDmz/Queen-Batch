@@ -68,15 +68,15 @@ public class SurveyUnitDaoJpaImpl implements SurveyUnitDao {
 	}
 
 	/**
-	 * Get all SU for a campaign and a given state (StateData)
-	 * @param campaignId, state
+	 * Get all SU with state not null for a campaign
+	 * @param campaignId
 	 * @return
 	 */
 	@Override
-	public List<SurveyUnit> getAllSurveyUnitsByCampaignIdByState(String state, String campaignId){
+	public List<SurveyUnit> getAllSurveyUnitsWithStateByCampaignId(String campaignId){
 		StringBuilder qString = new StringBuilder("SELECT su.id, su.campaign_id, stateData.state FROM survey_unit AS su ")
 				.append("INNER JOIN state_data AS stateData ON stateData.survey_unit_id = su.id ")
-				.append("WHERE stateData.state = ? AND su.campaign_id=?");
+				.append("WHERE stateData.state IS NOT NULL AND su.campaign_id=?");
 		return jdbcTemplate.query(qString.toString(), new Object[]{campaignId}, new SurveyUnitMapper());
 }
 
@@ -176,7 +176,7 @@ public class SurveyUnitDaoJpaImpl implements SurveyUnitDao {
 			su.setId(rs.getString("id"));
 			su.getCampaign().setId(rs.getString("campaign_id"));
 			su.getStateData().setState(rs.getString("state"));
-			
+
 			return su;
 		}
 	}
