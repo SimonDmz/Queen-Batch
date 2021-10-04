@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import fr.insee.queen.batch.object.Campaign;
 import fr.insee.queen.batch.object.QuestionnaireModel;
+import fr.insee.queen.batch.object.StateData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Conditional;
@@ -173,9 +175,13 @@ public class SurveyUnitDaoJpaImpl implements SurveyUnitDao {
 	private static final class SurveyUnitMapper implements RowMapper<SurveyUnit> {
 		public SurveyUnit mapRow(ResultSet rs, int rowNum) throws SQLException         {
 			SurveyUnit su = new SurveyUnit();
+			Campaign camp = new Campaign();
+			camp.setId(rs.getString("campaign_id"));
+			StateData state = new StateData();
+			state.setState(rs.getString("state"));
 			su.setId(rs.getString("id"));
-			su.getCampaign().setId(rs.getString("campaign_id"));
-			su.getStateData().setState(rs.getString("state"));
+			su.setCampaign(camp);
+			su.setStateData(state);
 
 			return su;
 		}

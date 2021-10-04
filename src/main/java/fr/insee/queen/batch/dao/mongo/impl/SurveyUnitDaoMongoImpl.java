@@ -77,6 +77,11 @@ public class SurveyUnitDaoMongoImpl implements SurveyUnitDao {
 		return surveyIds;
 	}
 
+	@Override
+	public List<SurveyUnit> getAllSurveyUnitsWithStateByCampaignId(String campaignId) {
+		return null;
+	}
+
 	/**
 	 * Get unexisting SurveyUnits
 	 * @param lstSu
