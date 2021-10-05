@@ -30,4 +30,4 @@ build/
 ### VS Code ###
 .vscode/
 
-/src/test/resources/in/testScenarios/**
+/src/test/resources/in/testScenarios
