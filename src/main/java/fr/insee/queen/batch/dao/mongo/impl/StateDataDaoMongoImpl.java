@@ -1,5 +1,6 @@
 package fr.insee.queen.batch.dao.mongo.impl;
 
+import java.time.Instant;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,7 @@ public class StateDataDaoMongoImpl implements StateDataDao{
 		StateData su = mongoTemplate.findOne(query, StateData.class, "state_data");
 		if(su != null) {
 			su.setState(state);
-			su.setDate(Long.valueOf(PathUtils.getTimestampForPath()));
+			su.setDate(Instant.now().toEpochMilli());
 			mongoTemplate.save(su, "state_data");
 		}
 	}

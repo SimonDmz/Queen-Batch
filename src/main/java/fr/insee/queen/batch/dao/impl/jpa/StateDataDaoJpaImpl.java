@@ -1,5 +1,6 @@
 package fr.insee.queen.batch.dao.impl.jpa;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,7 +64,7 @@ public class StateDataDaoJpaImpl implements StateDataDao{
 	@Override
 	public void updateSurveyUnitStateById(String suId, String state) {
 		StringBuilder qString = new StringBuilder("UPDATE state_data SET state = ?, date = ? WHERE survey_unit_id= ?");
-		jdbcTemplate.update(qString.toString(), state, Long.valueOf(PathUtils.getTimestampForPath()), suId);
+		jdbcTemplate.update(qString.toString(), state, Instant.now().toEpochMilli(), suId);
 	}
 
 }
