@@ -46,7 +46,6 @@ public interface SurveyUnitDao {
 	 */
 	List<String> findUnexistingSurveyUnitsInList(List<String> lstSu);
 
-
 	List<String> findSurveyUnitsByStateByCampaignId(String campaignId, String state);
 	/**
 	 * Get Survey unit by his id
