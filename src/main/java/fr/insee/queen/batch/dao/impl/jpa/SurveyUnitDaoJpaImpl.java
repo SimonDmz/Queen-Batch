@@ -97,6 +97,14 @@ public class SurveyUnitDaoJpaImpl implements SurveyUnitDao {
 		return jdbcTemplate.queryForList(qString, lstSu.toArray(), String.class); 
 	}
 
+	@Override
+	public List<String> findSurveyUnitsByStateByCampaignId(String campaignId, String state){
+		StringBuilder qString = new StringBuilder("SELECT su.id FROM survey_unit AS su ")
+				.append("INNER JOIN state_data AS stateData ON stateData.survey_unit_id = su.id ")
+				.append("WHERE stateData.state = ? AND su.campaign_id=?");
+		return jdbcTemplate.queryForList(qString.toString(), new Object[]{state,campaignId}, String.class);
+	}
+
 	/**
 	 * Delete a list of SU
 	 * @param lstSu
